@@ -9,10 +9,21 @@ package newcoder.SwordToOffer;
  */
 public class Question12 {
     public static double Power(double base, int exponent) {
-        return Math.pow(base,exponent);
+        if(base == 1) return 1;
+        if(exponent == 0 ) return 1;
+        if(exponent == 1 ) return base;
+        if(exponent < 0) {  base = 1.0/base; exponent = -exponent;}   //考虑exponent为负数的情况
+        double result = Power(base , exponent/2);
+        result *= result;
+        if(exponent%2 != 0 ){
+            result *= base;
+        }
+        return result;
     }
 
     public static void main(String[] args){
+
         System.out.println(Power(0.11,100));
+        System.out.println(-3%2);
     }
 }

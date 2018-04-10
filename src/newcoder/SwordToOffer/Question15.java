@@ -8,6 +8,9 @@ package newcoder.SwordToOffer;
 
 
 public class Question15 {
+
+    private ListNode nextNode;
+
     public ListNode ReverseList(ListNode head) {
         if(head == null) return null;
         ListNode result = null;
@@ -18,5 +21,23 @@ public class Question15 {
             head = head.next;
         }
         return result;
+    }
+
+    /**
+     * 不申请额外空间，直接在原有的链表基础上做操作
+     * @param head
+     * @return
+     */
+    public ListNode ReverseList2(ListNode head) {
+        if(head == null) return null;
+        ListNode nextNode = head.next;
+        head.next = null;
+        while(nextNode != null){
+            ListNode temp = nextNode.next;
+            nextNode.next = head;
+            head = nextNode;
+            nextNode = temp;
+        }
+        return head;
     }
 }

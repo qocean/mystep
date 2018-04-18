@@ -48,7 +48,30 @@ public class Question23 {
     public static void main(String args[]){
         Question23 test = new Question23();
         int[] sequence = {1,2,4,3,8,7,10,9,6};
+//        int[] sequence = {[4,8,6,12,16,14,10]};
 //        int[] sequence = {1,2,3,4,5};
-        System.out.println(test.VerifySquenceOfBST(sequence));
+        System.out.println(test.VerifySquenceOfBST2(sequence));
     }
+
+    /**
+     * 二刷
+     * @param sequence
+     * @return
+     */
+    public boolean VerifySquenceOfBST2(int [] sequence){
+        if(sequence.length <= 0) return false;
+        return findAnswer(sequence , 0 , sequence.length-1);
+    }
+
+    public boolean findAnswer(int[] sequence , int start , int end){
+        if(start >= end) return true;
+        int mid = start;
+        while(mid<end && sequence[mid]<sequence[end]) mid++;
+        int position = mid;
+        while(position<end && sequence[position]>sequence[end]) position++;
+        if(position < end) return false;
+        return findAnswer(sequence,start ,mid-1) && findAnswer(sequence,mid,end-1);
+    }
+
+
 }

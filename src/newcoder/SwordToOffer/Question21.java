@@ -1,5 +1,7 @@
 package newcoder.SwordToOffer;
 
+import java.util.Stack;
+
 /**
  *
  * 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。
@@ -29,10 +31,33 @@ public class Question21 {
 
     public static void main(String[] args){
         int[] pushA = { 1 , 2 ,3 , 4, 5};
-//        int[] pushB = {3 ,5 , 4 , 2 , 1};
-        int[] pushB = {4 , 3 , 5 , 1,2};
+        int[] pushB = {3 ,5 , 4 , 2 , 1};
+//        int[] pushB = {4 , 3 , 5 , 1,2};
         Question21 test = new Question21();
-        System.out.println(test.IsPopOrder(pushA,pushB));
+        System.out.println(test.IsPopOrder2(pushA,pushB));
     }
 
+    /**
+     * 适用栈来了一次二刷操作
+     * @param pushA
+     * @param popA
+     * @return
+     */
+    public boolean IsPopOrder2(int [] pushA,int [] popA) {
+        int length = popA.length;
+        Stack<Integer> stack = new Stack<>();
+        int pushPosition = 0 , popPosition = 0;
+        stack.push(pushA[pushPosition++]);
+        while(popPosition < length){
+            if(!stack.isEmpty() && stack.peek() == popA[popPosition]){
+               stack.pop();
+               popPosition++;
+            }else{
+                if(pushPosition >= length) return false;
+                stack.push(pushA[pushPosition++]);
+            }
+        }
+
+        return true;
+    }
 }

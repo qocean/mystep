@@ -3,16 +3,27 @@ package newcoder.SwordToOffer;
 import java.util.Stack;
 
 /**
- * Created by QiHaiyang on 2017/7/24.
+ * 问题描述：
+ *     定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。
+ *
+ * 修改时间：2018-04-12
+ * 修改原因：适用辅助栈来实现
  */
 public class Question20 {
     Stack<Integer> stack = new Stack<>();
+    Stack<Integer> minStack = new Stack<>();
     public void push(int node) {
         stack.push(node);
+        if(minStack.isEmpty() || minStack.peek()> node){
+            minStack.push(node);
+        }else{
+            minStack.push(minStack.peek());
+        }
     }
 
     public void pop() {
         stack.pop();
+        minStack.pop();
     }
 
     public int top() {
@@ -20,20 +31,6 @@ public class Question20 {
     }
 
     public int min() {
-        Stack<Integer> tempStack = new Stack<>();
-        int min = stack.peek();
-        stack.pop();
-        tempStack.push(min);
-        while(!stack.empty()){
-            int tempInt = stack.peek();
-            stack.pop();
-            if(min > tempInt) min = tempInt;
-            tempStack.push(tempInt);
-        }
-        while(!tempStack.isEmpty()){
-            stack.push(tempStack.peek());
-            tempStack.pop();
-        }
-        return min;
+        return minStack.peek();
     }
 }
